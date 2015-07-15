@@ -10,7 +10,7 @@ results = []
 base_url = ""
 
 fields = [
-	'url', 'created_utc',
+	'permalink', 'url', 'created_utc',
 	'score', 'gilded', 'subreddit',
 ]
 
