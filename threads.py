@@ -40,7 +40,7 @@ def get_next_batch():
 			threads.writerow(results.split())
 		time.sleep(5)
  
-subreddits = csv.reader(open('subreddits.csv'))
+subreddits = csv.reader(open('unscrapedsubreddits.csv'))
 for row in subreddits:
 	base_url = 'http://www.reddit.com'+ row[0] +'.json?'
 	print('Subreddit: ' + row[0])
