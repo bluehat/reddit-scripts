@@ -43,7 +43,7 @@ def get_next_batch():
 with open('unscrapedsubreddits.csv') as fp:
     subreddits = list(csv.reader(fp))
 
-tries = 1
+tries = 0
 
 while True:
     row = subreddits.pop()
@@ -55,7 +55,7 @@ while True:
             time.sleep(10)
             tries = 0
         except:
-            subreddits.insert(0, row)
+            subreddits.append(row)
             tries = tries + 1
             backoff = tries * 10
             print("Backing off sleeping for %d seconds" % backoff)
