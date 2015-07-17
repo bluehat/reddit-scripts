@@ -14,6 +14,8 @@ fields = [
 	'score', 'gilded', 'subreddit',
 ]
 
+threads = csv.writer(open('threads.csv', 'w'))
+
 print(','.join(fields))
  
 def get_next_batch(after=''):
@@ -27,10 +29,9 @@ def get_next_batch(after=''):
 		stamp = datetime.datetime.utcfromtimestamp(hit['created_utc']).timetuple()
 		hit['created_utc'] = time.strftime('%Y-%m-%d', stamp)
 		row = {}
-		out = []
-		for f in fields:
-			row[f] = hit[f]
-		results.append(row)
+		for k in hit:
+			row[k] = hit[k]
+		threads.writerow(",".join(str(v) for v in row.values()))
 	get_next_batch(after)
 	sleep(10000)
  
@@ -39,9 +40,7 @@ for row in subreddits:
 	base_url = "http://www.reddit.com"+ row[0] +".json?"
 	try:
 		get_next_batch('t5_38lwr')
-		print("Got through")
+		sleep(10000)
 	except:
-		print(",".join(fields))
-		for r in results:
-			print(",".join(str(v) for v in r.values()))
+		raise
 			
