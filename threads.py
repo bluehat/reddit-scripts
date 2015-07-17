@@ -40,15 +40,23 @@ def get_next_batch():
             threads.writerow(results.split())
         time.sleep(10)
 
-subreddits = csv.reader(open('unscrapedsubreddits.csv'))
-for row in subreddits:
+with open('unscrapedsubreddits.csv') as fp:
+    subreddits = list(csv.reader(fp))
+
+tries = 1
+
+while True:
+    row = subreddits.pop()
     print('Subreddit: ' + row[0])
     if row[1] != 'private':
         base_url = 'http://www.reddit.com'+ row[0] +'.json?'
         try:
             get_next_batch()
             time.sleep(10)
+            tries = 0
         except:
-            threadfile.close()
-            raise
-
+            subreddits.insert(0, row)
+            tries = tries + 1
+            backoff = tries * 10
+            print("Backing off sleeping for %d seconds" % backoff)
+            time.sleep(backoff)
