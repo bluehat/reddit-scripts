@@ -42,12 +42,13 @@ def get_next_batch():
  
 subreddits = csv.reader(open('unscrapedsubreddits.csv'))
 for row in subreddits:
-	base_url = 'http://www.reddit.com'+ row[0] +'.json?'
 	print('Subreddit: ' + row[0])
-	try:
-		get_next_batch()
-		time.sleep(10)
-	except:
-		threadfile.close()
-		raise
+	if row[1] != 'private':
+		base_url = 'http://www.reddit.com'+ row[0] +'.json?'
+		try:
+			get_next_batch()
+			time.sleep(10)
+		except:
+			threadfile.close()
+			raise
 			
