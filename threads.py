@@ -35,10 +35,10 @@ def get_next_batch():
 			for k in fields:
 				row[k] = hit[k]
 			results = ""
-			for r in row:
+			for r in sorted(row):
 				results = results + str(row[r]) + " "
 			threads.writerow(results.split())
-		time.sleep(5)
+		time.sleep(10)
  
 subreddits = csv.reader(open('unscrapedsubreddits.csv'))
 for row in subreddits:
