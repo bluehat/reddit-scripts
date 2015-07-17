@@ -12,6 +12,7 @@ base_url = ""
 fields = [
 	'permalink', 'url', 'created_utc',
 	'score', 'gilded', 'subreddit',
+	'author',
 ]
 
 threadfile = open('threads.csv', 'w')
